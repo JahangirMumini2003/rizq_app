@@ -1,0 +1,351 @@
+/* Rizq prototype — modern digital aesthetic */
+:root {
+  /* Brand green from logo — vibrant emerald */
+  --rz-green-700: oklch(0.45 0.18 148);
+  --rz-green-600: oklch(0.62 0.22 148);
+  --rz-green-500: oklch(0.70 0.22 148);
+  --rz-green-400: oklch(0.80 0.16 148);
+  --rz-green-50:  oklch(0.96 0.04 148);
+
+  /* Cool digital neutrals */
+  --rz-paper:     #fafbfd;                 /* page bg */
+  --rz-paper-2:   #f2f4f8;                 /* recessed surfaces */
+  --rz-card:      #ffffff;
+
+  --rz-ink-950:   #0b0d12;                 /* near-black, cool */
+  --rz-ink-800:   #1f242e;
+  --rz-ink-600:   #525866;
+  --rz-ink-400:   #8b94a3;
+  --rz-ink-200:   #d6dbe3;
+
+  --rz-line:      #e6e9ef;
+  --rz-line-soft: #eef0f4;
+
+  /* Accent digital tones — used sparingly */
+  --rz-violet:    oklch(0.60 0.20 285);
+  --rz-violet-50: oklch(0.97 0.03 285);
+  --rz-amber:     oklch(0.72 0.16 78);
+  --rz-amber-50:  oklch(0.97 0.04 80);
+  --rz-red:       oklch(0.62 0.20 24);
+  --rz-red-50:    oklch(0.97 0.03 24);
+
+  --rz-humo:      oklch(0.55 0.20 148);
+  --rz-uzcard:    oklch(0.42 0.16 252);
+
+  --font-sans: 'Inter', -apple-system, system-ui, sans-serif;
+  --font-display: 'Sora', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background:
+    radial-gradient(at 18% 12%, oklch(0.96 0.05 148 / 0.9) 0%, transparent 45%),
+    radial-gradient(at 84% 80%, oklch(0.94 0.06 285 / 0.55) 0%, transparent 50%),
+    radial-gradient(at 50% 100%, oklch(0.95 0.04 230 / 0.5) 0%, transparent 55%),
+    #f3f5f9;
+  color: var(--rz-ink-950);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  font-feature-settings: 'cv11', 'ss01';
+  overscroll-behavior: none;
+}
+
+#root { display: flex; align-items: center; justify-content: center; }
+
+/* ── Mobile: drop the device bezel, fill the actual viewport ───────────── */
+html.is-mobile,
+html.is-mobile body {
+  height: 100%;
+  overflow: hidden;
+}
+html.is-mobile body {
+  padding: 0;
+  background: var(--rz-paper);
+  display: block;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+html.is-mobile #root {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+}
+html.is-mobile .rz-mobile-shell {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--rz-paper);
+}
+html.is-mobile .rz-screen {
+  padding-top: max(20px, env(safe-area-inset-top));
+}
+html.is-mobile .rz-scroll::after {
+  content: '';
+  display: block;
+  height: env(safe-area-inset-bottom, 0px);
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+  body {
+    padding: 0;
+    background: var(--rz-paper);
+    display: block;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  #root {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+  }
+  .rz-mobile-shell {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    background: var(--rz-paper);
+  }
+  .rz-screen {
+    padding-top: max(20px, env(safe-area-inset-top));
+  }
+  .rz-scroll::after {
+    content: '';
+    display: block;
+    height: env(safe-area-inset-bottom, 0px);
+    flex-shrink: 0;
+  }
+}
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; padding: 0; color: inherit; }
+button:focus-visible { outline: 2px solid var(--rz-green-600); outline-offset: 2px; border-radius: 4px; }
+input { font-family: inherit; }
+
+.rz-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--rz-paper);
+  overflow: hidden;
+  padding-top: 54px; /* iOS status bar safe-area */
+}
+
+.rz-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.rz-scroll::-webkit-scrollbar { width: 0; }
+
+/* Primary button — dark/digital */
+.rz-btn {
+  width: 100%;
+  height: 56px;
+  border-radius: 18px;
+  background: var(--rz-ink-950);
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform .08s ease, background .15s, box-shadow .15s;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 6px 18px rgba(11,13,18,0.18);
+}
+.rz-btn:active:not(:disabled) { transform: scale(0.985); }
+.rz-btn:disabled { background: var(--rz-ink-200); color: white; cursor: not-allowed; box-shadow: none; }
+
+.rz-btn-green { background: var(--rz-green-600); color: white; box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset, 0 8px 22px oklch(0.62 0.22 148 / 0.32); }
+.rz-btn-green:disabled { background: var(--rz-ink-200); color: white; box-shadow: none; }
+
+.rz-btn-ghost {
+  background: var(--rz-paper-2);
+  color: var(--rz-ink-950);
+  border: none;
+  box-shadow: none;
+}
+
+.rz-input {
+  width: 100%;
+  height: 56px;
+  border-radius: 16px;
+  border: 1.5px solid var(--rz-line);
+  background: var(--rz-card);
+  padding: 0 16px;
+  font-size: 17px;
+  color: var(--rz-ink-950);
+  letter-spacing: -0.2px;
+  transition: border-color .15s, box-shadow .15s;
+  font-family: var(--font-sans);
+}
+.rz-input:focus { outline: none; border-color: var(--rz-ink-950); box-shadow: 0 0 0 4px var(--rz-paper-2); }
+
+.rz-card {
+  background: var(--rz-card);
+  border-radius: 22px;
+  border: 1px solid var(--rz-line-soft);
+  box-shadow: 0 1px 2px rgba(11,13,18,0.03);
+}
+
+.rz-chip {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 12px;
+  background: var(--rz-paper-2);
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rz-ink-800);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  letter-spacing: -0.1px;
+}
+.rz-chip-active { background: var(--rz-ink-950); color: white; }
+
+.rz-progress {
+  display: flex;
+  gap: 6px;
+  padding: 4px 20px 12px;
+}
+.rz-progress > span {
+  flex: 1;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--rz-ink-200);
+}
+.rz-progress > span.is-done { background: var(--rz-green-600); }
+
+/* Display type — modern geometric */
+.rz-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 1.05;
+}
+
+/* Tabular figures for numbers */
+.rz-num {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.4px;
+  font-family: var(--font-display);
+}
+
+/* Removed paper texture — going clean digital */
+.rz-paper-tex::before { content: none; }
+
+@keyframes rz-fade-up { from { transform: translateY(8px); } to { transform: none; } }
+.rz-fade-up   { animation: rz-fade-up .35s cubic-bezier(.2,.7,.2,1) both; }
+.rz-fade-up-2 { animation: rz-fade-up .35s .08s cubic-bezier(.2,.7,.2,1) both; }
+.rz-fade-up-3 { animation: rz-fade-up .35s .16s cubic-bezier(.2,.7,.2,1) both; }
+
+@keyframes rz-pop { 0% { transform: scale(.6); opacity: 0; } 60% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); } }
+.rz-pop { animation: rz-pop .55s cubic-bezier(.2,.7,.2,1) both; }
+
+@keyframes rz-sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+.rz-sheet { animation: rz-sheet-up .28s cubic-bezier(.2,.7,.2,1) both; }
+
+@keyframes rz-back-fade { from { opacity: 0; } to { opacity: 1; } }
+.rz-backdrop { animation: rz-back-fade .25s ease both; }
+
+@keyframes rz-confetti { 0% { transform: translate(0,0) rotate(0); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) rotate(var(--r)); opacity: 0; } }
+.rz-confetti-piece {
+  position: absolute;
+  width: 8px; height: 14px;
+  top: 50%; left: 50%;
+  border-radius: 2px;
+  animation: rz-confetti 1.6s cubic-bezier(.1,.8,.3,1) both;
+}
+
+@keyframes rz-spin { to { transform: rotate(360deg); } }
+.rz-spin { animation: rz-spin 1s linear infinite; }
+
+@keyframes rz-tick { from { stroke-dashoffset: 60; } to { stroke-dashoffset: 0; } }
+.rz-tick path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: rz-tick .55s .3s cubic-bezier(.2,.7,.2,1) both;
+}
+
+.rz-divider { height: 1px; background: var(--rz-line-soft); }
+
+/* Blinking caret for digit fields */
+@keyframes rz-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+.rz-caret {
+  display: inline-block;
+  width: 2.5px;
+  border-radius: 99px;
+  background: var(--rz-green-600);
+  animation: rz-blink 1.05s steps(1) infinite;
+}
+
+/* Soft pulsing ring (employer match / verified) */
+@keyframes rz-pulse-ring {
+  0%   { transform: scale(0.92); opacity: 0.55; }
+  70%  { transform: scale(1.25); opacity: 0; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+.rz-pulse-ring { animation: rz-pulse-ring 2.2s cubic-bezier(.2,.7,.2,1) infinite; }
+
+/* Animated dashed link line drawing */
+@keyframes rz-dash-draw { from { stroke-dashoffset: 40; } to { stroke-dashoffset: 0; } }
+.rz-link-line { stroke-dasharray: 4 4; animation: rz-dash-draw 1s ease both; }
+
+/* Sheen sweep across the ID credential */
+@keyframes rz-sheen { 0% { transform: translateX(-120%) rotate(8deg); } 100% { transform: translateX(220%) rotate(8deg); } }
+.rz-sheen::after {
+  content: '';
+  position: absolute; inset: -40% -10%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
+  transform: translateX(-120%) rotate(8deg);
+  animation: rz-sheen 2.8s 0.5s ease-in-out;
+}
+
+@keyframes rz-rise { from { transform: translateY(14px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* dark variants */
+.rz-dark {
+  --rz-paper: #0c0e13;
+  --rz-paper-2: #15181f;
+  --rz-card: #161922;
+  --rz-ink-950: #f3f5f9;
+  --rz-ink-800: #d6dbe3;
+  --rz-ink-600: #8b94a3;
+  --rz-ink-400: #5a626f;
+  --rz-ink-200: #2a2f3a;
+  --rz-line: #232833;
+  --rz-line-soft: #1d212b;
+}
+.rz-dark body, .rz-dark {
+  background:
+    radial-gradient(at 18% 12%, oklch(0.30 0.07 148 / 0.7) 0%, transparent 45%),
+    radial-gradient(at 84% 80%, oklch(0.28 0.06 285 / 0.55) 0%, transparent 50%),
+    #0a0c11;
+}
+.rz-dark .rz-btn { background: white; color: var(--rz-paper); box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
+.rz-dark .rz-btn-green { background: var(--rz-green-500); color: #0a0c11; }
+.rz-dark .rz-chip { background: var(--rz-paper-2); color: var(--rz-ink-800); }
+.rz-dark .rz-chip-active { background: white; color: var(--rz-paper); }
